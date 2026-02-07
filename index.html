@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Расчет консольной лестницы</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Расчет консольной лестницы</h1>
+      <p>Введите размеры и цены материалов, чтобы получить итоговую стоимость.</p>
+    </header>
+
+    <main class="app">
+      <nav class="tabs" role="tablist">
+        <button class="tab-button is-active" type="button" data-tab="calc" role="tab" aria-controls="tab-calc">
+          Расчет
+        </button>
+        <button class="tab-button" type="button" data-tab="materials" role="tab" aria-controls="tab-materials">
+          Материалы
+        </button>
+      </nav>
+
+      <section id="tab-calc" class="tab-panel is-active" role="tabpanel">
+        <form id="calc-form" class="card" novalidate>
+          <h2>Параметры лестницы</h2>
+          <div class="grid">
+            <label>
+              Количество прямых ступеней
+              <input type="number" min="0" step="1" id="steps-straight" required />
+            </label>
+            <label>
+              Количество забежных ступеней
+              <input type="number" min="0" step="1" id="steps-winder" required />
+            </label>
+            <label>
+              Подъем ступени (мм)
+              <input type="number" min="1" step="1" id="rise" required />
+            </label>
+            <label>
+              Проступь ступени (мм)
+              <input type="number" min="1" step="1" id="tread" required />
+            </label>
+            <label>
+              Ширина ступени (мм)
+              <input type="number" min="1" step="1" id="step-width" required />
+            </label>
+            <label>
+              Длина ступени (мм)
+              <input type="number" min="1" step="1" id="step-length" required />
+            </label>
+            <label>
+              Длина балюстрады (м)
+              <input type="number" min="0" step="0.01" id="balustrade" value="0" />
+            </label>
+          </div>
+
+          <div class="toggle">
+            <label class="toggle-label">
+              Наличие площадки
+              <input type="checkbox" id="landing-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div id="landing-fields" class="grid is-hidden">
+            <label>
+              Ширина площадки (м)
+              <input type="number" min="0.1" step="0.01" id="landing-width" />
+            </label>
+            <label>
+              Длина площадки (м)
+              <input type="number" min="0.1" step="0.01" id="landing-length" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="primary">Рассчитать</button>
+            <button type="button" id="reset-calc">Сбросить</button>
+          </div>
+          <p id="calc-error" class="error" role="alert"></p>
+        </form>
+
+        <section id="result" class="card result">
+          <h2>Результат</h2>
+          <div class="result-grid">
+            <div>
+              <span class="label">Итоговая цена для клиента</span>
+              <strong id="total-price">—</strong>
+            </div>
+            <div>
+              <span class="label">Количество ступеней</span>
+              <strong id="total-steps">—</strong>
+            </div>
+            <div>
+              <span class="label">Погонные метры ограждений</span>
+              <strong id="rail-meters">—</strong>
+            </div>
+          </div>
+          <div class="breakdown">
+            <h3>Расшифровка себестоимости</h3>
+            <ul>
+              <li><span>Ступени</span><span id="cost-steps">—</span></li>
+              <li><span>Металлические крепления</span><span id="cost-metal">—</span></li>
+              <li><span>Химический анкер</span><span id="cost-anchor">—</span></li>
+              <li><span>ЛКМ (паркетное масло)</span><span id="cost-oil">—</span></li>
+              <li><span>Ограждения</span><span id="cost-rail">—</span></li>
+              <li><span>Площадка</span><span id="cost-landing">—</span></li>
+              <li class="total"><span>Себестоимость комплектующих</span><span id="cost-parts">—</span></li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <section id="tab-materials" class="tab-panel" role="tabpanel">
+        <form id="materials-form" class="card">
+          <h2>Материалы</h2>
+          <div class="grid">
+            <label>
+              Цена древесины за м³ (дуб)
+              <input type="number" min="0" step="1" id="wood-oak" />
+            </label>
+            <label>
+              Цена древесины за м³ (бук)
+              <input type="number" min="0" step="1" id="wood-beech" />
+            </label>
+            <label>
+              Цена древесины за м³ (береза)
+              <input type="number" min="0" step="1" id="wood-birch" />
+            </label>
+            <label>
+              Цена за метр прутка, ₽/м
+              <input type="number" min="0" step="1" id="rod-price" />
+            </label>
+            <label>
+              Цена химического анкера, ₽/ед
+              <input type="number" min="0" step="1" id="anchor-price" />
+            </label>
+            <label>
+              Цена за м² площадки, ₽/м²
+              <input type="number" min="0" step="1" id="landing-price" />
+            </label>
+            <label>
+              Коэффициент на забежную ступень
+              <input type="number" min="0.1" step="0.1" id="winder-coef" />
+            </label>
+            <label>
+              Цена паркетного масла, ₽/л
+              <input type="number" min="0" step="1" id="oil-price" />
+            </label>
+            <label>
+              Цена ограждений, ₽/м.п.
+              <input type="number" min="0" step="1" id="rail-price" />
+            </label>
+          </div>
+
+          <label class="select">
+            Материал ступеней
+            <select id="wood-type">
+              <option value="oak">Дуб</option>
+              <option value="beech">Бук</option>
+              <option value="birch">Береза</option>
+            </select>
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="primary">Сохранить</button>
+            <button type="button" id="reset-materials">Сбросить к значениям по умолчанию</button>
+          </div>
+          <p id="materials-note" class="note"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
