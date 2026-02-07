@@ -1,0 +1,245 @@
+:root {
+  color-scheme: dark;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1e2530 0%, #12161d 55%, #0b0f14 100%);
+  color: #e6edf3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.app-header {
+  padding: 40px 16px 20px;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin-bottom: 8px;
+  font-size: 32px;
+  letter-spacing: 0.4px;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 16px 32px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  background: rgba(25, 31, 40, 0.9);
+  border: 1px solid rgba(120, 130, 150, 0.3);
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #d1d7e0;
+  transition: all 0.2s ease;
+}
+
+.tab-button.is-active {
+  background: linear-gradient(135deg, #1f7bff, #3bb2ff);
+  color: #0b0f14;
+  border-color: transparent;
+  box-shadow: 0 8px 18px rgba(31, 123, 255, 0.35);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.is-active {
+  display: block;
+}
+
+.card {
+  background: rgba(18, 24, 32, 0.9);
+  border-radius: 20px;
+  padding: 26px;
+  border: 1px solid rgba(120, 130, 150, 0.18);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+input,
+select {
+  padding: 10px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  font-size: 14px;
+  background: rgba(10, 14, 20, 0.9);
+  color: #e2e8f0;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(56, 189, 248, 0.8);
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  background: rgba(148, 163, 184, 0.2);
+  color: #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background: linear-gradient(135deg, #1f7bff, #3bb2ff);
+  color: #0b0f14;
+  box-shadow: 0 10px 24px rgba(31, 123, 255, 0.35);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+}
+
+.toggle {
+  margin-top: 16px;
+}
+
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle-label input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+  position: relative;
+  transition: background 0.2s;
+}
+
+.toggle-slider::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+.toggle-label input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #1f7bff, #3bb2ff);
+}
+
+.toggle-label input:checked + .toggle-slider::after {
+  transform: translateX(20px);
+}
+
+.is-hidden {
+  display: none;
+}
+
+.error {
+  color: #f87171;
+  margin-top: 12px;
+}
+
+.note {
+  margin-top: 12px;
+  color: #9ca3af;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.result-grid .label {
+  display: block;
+  color: #9aa4b2;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.result-grid strong {
+  font-size: 20px;
+}
+
+.breakdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.breakdown li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.breakdown li.total {
+  font-weight: 700;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  padding-top: 10px;
+}
+
+.select {
+  margin-top: 16px;
+  max-width: 320px;
+}
+
+@media (max-width: 600px) {
+  .tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
